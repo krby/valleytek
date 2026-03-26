@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://yourusername.github.io',
+  site: 'https://krby.github.io',
   vite: {
     plugins: [tailwindcss()],
   },
