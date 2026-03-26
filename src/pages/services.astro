@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
+import { getCollection, render } from 'astro:content';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const pageEntry = (await getCollection('pages')).find((e) => e.id === 'services');
+const d = pageEntry?.data as Record<string, any>;
+const specs = (d?.specs ?? []) as { label: string; detail: string }[];
+---
+
+<BaseLayout title={d?.title ?? 'Services'} description={d?.description}>
+  <!-- Page Header -->
+  <section class="bg-gradient-to-br from-navy-900 to-navy-800 text-white py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-crimson-200 font-semibold text-sm uppercase tracking-widest mb-4">{d?.headerTagline}</p>
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4">{d?.title}</h1>
+      <p class="text-lg text-gray-300 max-w-2xl">{d?.headerSubtext}</p>
+    </div>
+  </section>
+
+  <!-- Services List -->
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {await Promise.all(services.map(async (service) => {
+        const { Content } = await render(service);
+        const photo = service.data.photo;
+        return (
+          <div class="rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group" id={service.id}>
+            {photo && (
+              <div class="w-full h-56 overflow-hidden">
+                <img src={photo} alt={service.data.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            )}
+            <div class="flex flex-col md:flex-row gap-8 items-start p-8 md:p-10">
+              <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-navy-50 to-navy-100 rounded-xl flex items-center justify-center text-navy-700">
+                <ServiceIcon icon={service.data.icon} class="w-8 h-8" />
+              </div>
+              <div class="flex-1">
+                <h2 class="text-2xl font-bold text-navy-900 mb-4">{service.data.title}</h2>
+                <div class="prose prose-gray max-w-none prose-strong:text-navy-800 prose-li:text-gray-600 prose-p:text-gray-600">
+                  <Content />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }))}
+    </div>
+  </section>
+
+  <!-- Specs callout -->
+  {specs.length > 0 && (
+    <section class="py-20 bg-navy-900 text-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-crimson-200 font-semibold text-sm uppercase tracking-widest mb-3">{d?.specsTagline}</p>
+          <h2 class="text-3xl font-bold mb-4">{d?.specsHeading}</h2>
+          <p class="text-gray-400 max-w-xl mx-auto">{d?.specsSubtext}</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {specs.map((spec) => (
+            <div class="rounded-2xl p-8 bg-navy-800/50 border border-navy-700 text-center">
+              <p class="font-bold text-lg mb-2">{spec.label}</p>
+              <p class="text-gray-400 text-sm">{spec.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 bg-gradient-to-r from-crimson-500 to-crimson-700 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{d?.ctaHeading}</h2>
+      <p class="text-crimson-100 mb-8 max-w-xl mx-auto text-lg">{d?.ctaText}</p>
+      <a href="/contact/" class="inline-flex items-center justify-center px-10 py-4 bg-white text-crimson-600 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-lg">
+        {d?.ctaButton}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

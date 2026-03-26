@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import company from '../data/company.json';
+import { ShieldCheck } from '@lucide/astro';
+
+const aboutEntry = (await getCollection('pages')).find((e) => e.id === 'about');
+let AboutContent: any = null;
+if (aboutEntry) {
+  const rendered = await render(aboutEntry);
+  AboutContent = rendered.Content;
+}
+const d = aboutEntry?.data as Record<string, any>;
+const certs = company.certifications;
+---
+
+<BaseLayout title="About" description={d?.description}>
+  <!-- Page Header -->
+  <section class="relative bg-navy-900 text-white py-28 overflow-hidden">
+    {d?.headerImage && (
+      <div class="absolute inset-0">
+        <img src={d.headerImage} alt="" class="w-full h-full object-cover opacity-20" />
+        <div class="absolute inset-0 bg-gradient-to-r from-navy-900/90 to-navy-900/60"></div>
+      </div>
+    )}
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-crimson-200 font-semibold text-sm uppercase tracking-widest mb-4">{d?.headerTagline}</p>
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4">{d?.title}</h1>
+      <p class="text-lg text-gray-300 max-w-2xl">{d?.description}</p>
+    </div>
+  </section>
+
+  <!-- Story + Photos -->
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div class="prose prose-lg max-w-none prose-headings:text-navy-900 prose-headings:font-bold prose-a:text-crimson-500 prose-strong:text-navy-800 prose-p:text-gray-600 prose-li:text-gray-600">
+          {AboutContent && <AboutContent />}
+        </div>
+        <div class="space-y-5 lg:sticky lg:top-28">
+          {(d?.photos as any[])?.length > 0 && (
+            <>
+              <div class="overflow-hidden rounded-2xl shadow-xl">
+                <img src={(d.photos as any[])[0].src} alt={(d.photos as any[])[0].alt} class="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                {(d.photos as any[]).slice(1).map((photo: any) => (
+                  <div class="overflow-hidden rounded-xl shadow-lg">
+                    <img src={photo.src} alt={photo.alt} class="w-full h-48 object-cover hover:scale-105 transition-transform duration-500" />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="bg-navy-900 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {(d?.stats as any[])?.map((stat: any) => (
+          <div class="text-center">
+            <div class="text-5xl font-bold text-crimson-500 mb-2">{stat.value}</div>
+            <div class="text-sm text-gray-300 font-medium">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications & Standards -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <p class="text-crimson-500 font-semibold text-sm uppercase tracking-widest mb-3">{d?.certificationsTagline}</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-3">{d?.certificationsHeading}</h2>
+        <p class="text-gray-500 max-w-xl mx-auto text-lg">{d?.certificationsSubheading}</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {certs.map((cert) => (
+          <div class="flex flex-col items-center text-center p-10 rounded-2xl bg-gray-50 border border-gray-200 hover:border-crimson-200 hover:shadow-lg transition-all duration-300">
+            {cert.logo ? (
+              <img src={cert.logo} alt={cert.name} class="h-20 mb-6 object-contain p-2 bg-white rounded-lg border border-gray-200" />
+            ) : (
+              <div class="w-20 h-20 bg-gradient-to-br from-navy-100 to-navy-200 rounded-full flex items-center justify-center mb-6">
+                <ShieldCheck class="w-10 h-10 text-navy-700" />
+              </div>
+            )}
+            <h3 class="text-lg font-bold text-navy-900 mb-2">{cert.name}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{cert.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-gradient-to-br from-crimson-500 to-crimson-700 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{d?.ctaHeading}</h2>
+      <p class="text-crimson-100 mb-8 max-w-xl mx-auto text-lg">{d?.ctaText}</p>
+      <a href="/contact/" class="inline-flex items-center justify-center px-10 py-4 bg-white text-crimson-600 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-lg">
+        {d?.ctaButton}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

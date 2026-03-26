@@ -1,0 +1,65 @@
+---
+import {
+  Box,
+  Cable,
+  CircuitBoard,
+  Cpu,
+  Factory,
+  FlaskConical,
+  Gauge,
+  Layers,
+  Lightbulb,
+  Microchip,
+  Microscope,
+  Package,
+  PackageCheck,
+  PencilRuler,
+  Plug,
+  Ruler,
+  ScanLine,
+  Search,
+  Settings,
+  Shield,
+  ShieldCheck,
+  Truck,
+  Wrench,
+  Zap,
+} from '@lucide/astro';
+
+interface Props {
+  icon: string;
+  class?: string;
+}
+
+const iconMap: Record<string, any> = {
+  box: Box,
+  cable: Cable,
+  'circuit-board': CircuitBoard,
+  cpu: Cpu,
+  factory: Factory,
+  'flask-conical': FlaskConical,
+  gauge: Gauge,
+  layers: Layers,
+  lightbulb: Lightbulb,
+  microchip: Microchip,
+  microscope: Microscope,
+  package: Package,
+  'package-check': PackageCheck,
+  'pencil-ruler': PencilRuler,
+  plug: Plug,
+  ruler: Ruler,
+  'scan-line': ScanLine,
+  search: Search,
+  settings: Settings,
+  shield: Shield,
+  'shield-check': ShieldCheck,
+  truck: Truck,
+  wrench: Wrench,
+  zap: Zap,
+};
+
+const { icon, class: className = 'w-8 h-8' } = Astro.props;
+const Icon = iconMap[icon];
+---
+
+{Icon && <Icon class={className} />}

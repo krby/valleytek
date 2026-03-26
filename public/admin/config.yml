@@ -1,0 +1,236 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/valleytek # Update this!
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  # ── Site-wide Settings ──────────────────────────────────
+  - name: settings
+    label: Site Settings
+    files:
+      - name: company
+        label: Company Info
+        file: src/data/company.json
+        format: json
+        fields:
+          - { label: Site Logo, name: logo, widget: image }
+          - { label: Company Name, name: name, widget: string }
+          - label: Address
+            name: address
+            widget: object
+            fields:
+              - { label: Street, name: street, widget: string }
+              - { label: City, name: city, widget: string }
+              - { label: State, name: state, widget: string }
+              - { label: ZIP, name: zip, widget: string }
+          - { label: Phone, name: phone, widget: string }
+          - { label: Fax, name: fax, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: Footer Tagline, name: footerTagline, widget: string, hint: "Short description shown in the footer" }
+          - label: Social Links
+            name: social
+            widget: object
+            fields:
+              - { label: LinkedIn URL, name: linkedin, widget: string }
+              - { label: Facebook URL, name: facebook, widget: string }
+          - label: Certifications
+            name: certifications
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Logo, name: logo, widget: image, required: false }
+          - label: Trust Bar Items
+            name: trustBar
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Show Logo?, name: showLogo, widget: boolean, default: false, required: false }
+
+  # ── Pages ───────────────────────────────────────────────
+  - name: pages
+    label: Pages
+    files:
+      # ── Home Page ──
+      - name: home
+        label: Home Page
+        file: src/content/pages/home.md
+        fields:
+          - { label: Page Title, name: title, widget: string }
+          - { label: Meta Description, name: description, widget: text }
+          - { label: Hero Tagline, name: heroTagline, widget: string, hint: "Small text above the main title" }
+          - { label: Hero Background Image, name: heroImage, widget: image }
+          - { label: Hero Primary Button, name: heroPrimaryButton, widget: string, hint: "e.g. Request a Quote" }
+          - { label: Hero Secondary Button, name: heroSecondaryButton, widget: string, hint: "e.g. Our Services" }
+          - { label: Services Section Label, name: servicesTagline, widget: string, hint: "Small label above services heading" }
+          - { label: Services Heading, name: servicesHeading, widget: string }
+          - { label: Services Subheading, name: servicesSubheading, widget: string }
+          - { label: Highlights Section Label, name: highlightsTagline, widget: string }
+          - { label: Highlights Heading, name: highlightsHeading, widget: string }
+          - { label: Highlights Text, name: highlightsText, widget: text }
+          - { label: Highlights Link Text, name: highlightsLinkText, widget: string }
+          - label: Highlights
+            name: highlights
+            widget: list
+            field: { label: Highlight, name: highlight, widget: string }
+          - label: Showcase Photos
+            name: photos
+            widget: list
+            fields:
+              - { label: Image, name: src, widget: image }
+              - { label: Alt Text, name: alt, widget: string }
+          - { label: Stats Section Label, name: whyTagline, widget: string, hint: "Small label above stats, e.g. By the Numbers" }
+          - { label: Stats Heading, name: whyHeading, widget: string }
+          - { label: Stats Subheading, name: whySubheading, widget: text }
+          - label: Stats
+            name: stats
+            widget: list
+            fields:
+              - { label: Value, name: value, widget: string, hint: "e.g. 30+, 12K, 2003" }
+              - { label: Label, name: label, widget: string }
+              - { label: Detail, name: detail, widget: string }
+          - { label: Industries Section Label, name: industriesTagline, widget: string }
+          - { label: Industries Heading, name: industriesHeading, widget: string }
+          - { label: Industries Subheading, name: industriesSubheading, widget: string }
+          - label: Industries
+            name: industries
+            widget: list
+            field: { label: Industry, name: industry, widget: string }
+          - { label: CTA Heading, name: ctaHeading, widget: string }
+          - { label: CTA Text, name: ctaText, widget: text }
+          - { label: CTA Primary Button, name: ctaPrimaryButton, widget: string }
+          - { label: CTA Secondary Button, name: ctaSecondaryButton, widget: string }
+          - { label: Body, name: body, widget: markdown }
+
+      # ── About Page ──
+      - name: about
+        label: About Page
+        file: src/content/pages/about.md
+        fields:
+          - { label: Page Title, name: title, widget: string }
+          - { label: Meta Description, name: description, widget: text }
+          - { label: Header Section Label, name: headerTagline, widget: string, hint: "Small label above the page title" }
+          - { label: Header Background Image, name: headerImage, widget: image }
+          - label: Stats
+            name: stats
+            widget: list
+            fields:
+              - { label: Value, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+          - label: Photos
+            name: photos
+            widget: list
+            fields:
+              - { label: Image, name: src, widget: image }
+              - { label: Alt Text, name: alt, widget: string }
+          - { label: Certifications Section Label, name: certificationsTagline, widget: string, hint: "Small label above certifications heading" }
+          - { label: Certifications Heading, name: certificationsHeading, widget: string }
+          - { label: Certifications Subheading, name: certificationsSubheading, widget: text }
+          - { label: CTA Heading, name: ctaHeading, widget: string }
+          - { label: CTA Text, name: ctaText, widget: text }
+          - { label: CTA Button Text, name: ctaButton, widget: string }
+          - { label: Body, name: body, widget: markdown }
+
+      # ── Services Page ──
+      - name: services
+        label: Services Page
+        file: src/content/pages/services.md
+        fields:
+          - { label: Page Title, name: title, widget: string }
+          - { label: Meta Description, name: description, widget: text }
+          - { label: Header Section Label, name: headerTagline, widget: string }
+          - { label: Header Subtext, name: headerSubtext, widget: text }
+          - { label: Specs Section Label, name: specsTagline, widget: string }
+          - { label: Specs Heading, name: specsHeading, widget: string }
+          - { label: Specs Subtext, name: specsSubtext, widget: text }
+          - label: Specs Cards
+            name: specs
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string, hint: "e.g. Materials, Process, Lead Time" }
+              - { label: Detail, name: detail, widget: string }
+          - { label: CTA Heading, name: ctaHeading, widget: string }
+          - { label: CTA Text, name: ctaText, widget: text }
+          - { label: CTA Button Text, name: ctaButton, widget: string }
+
+      # ── FAQ Page ──
+      - name: faq
+        label: FAQ Page
+        file: src/content/pages/faq.md
+        fields:
+          - { label: Page Title, name: title, widget: string }
+          - { label: Meta Description, name: description, widget: text }
+          - { label: Header Section Label, name: headerTagline, widget: string }
+          - label: FAQs
+            name: faqs
+            widget: list
+            fields:
+              - { label: Question, name: question, widget: string }
+              - { label: Answer, name: answer, widget: markdown }
+          - { label: Still Have Questions Heading, name: stillHaveQuestionsHeading, widget: string }
+          - { label: Still Have Questions Text, name: stillHaveQuestionsText, widget: text }
+          - { label: CTA Button Text, name: ctaButton, widget: string }
+
+      # ── Contact Page ──
+      - name: contact
+        label: Contact Page
+        file: src/content/pages/contact.md
+        fields:
+          - { label: Page Title, name: title, widget: string }
+          - { label: Meta Description, name: description, widget: text }
+          - { label: Header Section Label, name: headerTagline, widget: string }
+          - { label: Form Heading, name: formHeading, widget: string }
+          - { label: Submit Button Text, name: sendButton, widget: string }
+          - { label: Contact Info Card Heading, name: contactInfoHeading, widget: string }
+          - { label: Quote Hint Heading, name: quoteHintHeading, widget: string }
+          - label: Quote Hints
+            name: quoteHints
+            widget: list
+            field: { label: Hint, name: hint, widget: string }
+          - { label: Body, name: body, widget: markdown }
+
+  # ── Services ────────────────────────────────────────────
+  - name: service-items
+    label: Services
+    label_singular: Service
+    folder: src/content/services
+    create: true
+    delete: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Short Description, name: description, widget: text }
+      - label: Icon
+        name: icon
+        widget: select
+        hint: "Preview icons at https://lucide.dev/icons/"
+        options:
+          - { label: Box, value: box }
+          - { label: Cable, value: cable }
+          - { label: CircuitBoard, value: circuit-board }
+          - { label: Cpu, value: cpu }
+          - { label: Factory, value: factory }
+          - { label: FlaskConical, value: flask-conical }
+          - { label: Gauge, value: gauge }
+          - { label: Layers, value: layers }
+          - { label: Lightbulb, value: lightbulb }
+          - { label: Microchip, value: microchip }
+          - { label: Microscope, value: microscope }
+          - { label: Package, value: package }
+          - { label: PackageCheck, value: package-check }
+          - { label: PencilRuler, value: pencil-ruler }
+          - { label: Plug, value: plug }
+          - { label: Ruler, value: ruler }
+          - { label: ScanLine, value: scan-line }
+          - { label: Search, value: search }
+          - { label: Settings, value: settings }
+          - { label: Shield, value: shield }
+          - { label: ShieldCheck, value: shield-check }
+          - { label: Truck, value: truck }
+          - { label: Wrench, value: wrench }
+          - { label: Zap, value: zap }
+      - { label: Display Order, name: order, widget: number, value_type: int }
+      - { label: Photo, name: photo, widget: image, required: false }
+      - { label: Full Description, name: body, widget: markdown }

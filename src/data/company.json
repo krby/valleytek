@@ -1,0 +1,39 @@
+{
+  "logo": "/images/valleytek-logo.png",
+  "name": "Valleytek, Inc.",
+  "address": {
+    "street": "930 Rincon Circle",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95131"
+  },
+  "phone": "(408) 577-1218",
+  "fax": "(408) 577-1299",
+  "email": "info@valleytek.com",
+  "footerTagline": "Excellence in Electronic Manufacturing Services. Your trusted Silicon Valley partner since 2003.",
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/valleytek-inc.",
+    "facebook": "https://www.facebook.com/61556983037826/"
+  },
+  "certifications": [
+    {
+      "name": "ISO 9001:2015",
+      "description": "Certified quality management system covering all aspects of our manufacturing process.",
+      "logo": "/images/iso-9001-logo.png"
+    },
+    {
+      "name": "IPC-A-610",
+      "description": "Acceptability of Electronic Assemblies — Class 2 and Class 3 workmanship standards."
+    },
+    {
+      "name": "IPC-A-620",
+      "description": "Requirements and Acceptance for Cable and Wire Harness Assemblies — Class 2 and Class 3."
+    }
+  ],
+  "trustBar": [
+    { "label": "ISO 9001:2015 Certified", "showLogo": true },
+    { "label": "IPC-A-610 / IPC-A-620 Class 2 & 3" },
+    { "label": "San Jose, CA — Silicon Valley" },
+    { "label": "1-day expedite to 10-day standard turns" }
+  ]
+}

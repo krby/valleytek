@@ -1,0 +1,92 @@
+---
+import company from '../data/company.json';
+import { Menu, X } from '@lucide/astro';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about/', label: 'About' },
+  { href: '/services/', label: 'Services' },
+  { href: '/faq/', label: 'FAQ' },
+  { href: '/contact/', label: 'Contact' },
+];
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href="/" class="flex items-center">
+        <img src={company.logo} alt={company.name} class="h-10 sm:h-12" />
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'px-4 py-2 rounded-lg text-sm font-medium transition-all',
+              currentPath === link.href
+                ? 'text-crimson-500 bg-crimson-50'
+                : 'text-navy-700 hover:text-crimson-500 hover:bg-gray-50',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a
+          href="/contact/"
+          class="ml-4 px-6 py-2.5 bg-crimson-500 text-white text-sm font-semibold rounded-lg hover:bg-crimson-600 transition-colors shadow-sm shadow-crimson-500/25"
+        >
+          Get a Quote
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-lg text-navy-700 hover:bg-gray-100"
+        aria-label="Toggle menu"
+      >
+        <Menu id="menu-open-icon" class="w-6 h-6" />
+        <X id="menu-close-icon" class="w-6 h-6 hidden" />
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-gray-100">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'block px-4 py-3 text-sm font-medium rounded-lg mt-1',
+            currentPath === link.href
+              ? 'text-crimson-500 bg-crimson-50'
+              : 'text-navy-700 hover:bg-gray-50',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="/contact/"
+        class="block mt-2 mx-4 px-5 py-2.5 bg-crimson-500 text-white text-sm font-semibold rounded-lg text-center hover:bg-crimson-600 transition-colors"
+      >
+        Get a Quote
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-open-icon');
+  const closeIcon = document.getElementById('menu-close-icon');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    openIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+</script>
