@@ -1,6 +1,6 @@
 ---
 title: Excellence in Electronic Manufacturing Services
-description: Your trusted Silicon Valley partner for contract electronics manufacturing — from prototype to production.
+description: Your trusted Bay Area partner for contract electronic manufacturing services
 heroTagline: Silicon Valley EMS Partner
 heroImage: /images/pcbs-production.jpg
 heroPrimaryButton: Request a Quote
@@ -30,16 +30,16 @@ whyTagline: By the Numbers
 whyHeading: Why Valleytek
 whySubheading: Decades of experience, state-of-the-art facilities, and an unwavering commitment to quality
 stats:
-  - value: "30+"
+  - value: 30+
     label: Years Experience
     detail: Industry veteran team
-  - value: "12K"
+  - value: 12K
     label: Sq Ft Facility
     detail: ESD-safe & climate controlled
-  - value: "2003"
+  - value: '2003'
     label: Founded
     detail: Silicon Valley roots
-  - value: "ISO"
+  - value: ISO
     label: 9001:2015 Certified
     detail: Quality management system
 industriesTagline: Industries
